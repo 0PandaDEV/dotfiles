@@ -1,2 +1,2 @@
-# dotfiles
+# Dotfiles
 I use Arch btw
