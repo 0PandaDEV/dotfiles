@@ -1,0 +1,9 @@
+2024/02/22-15:54:40.269 3ed7 Reusing MANIFEST /home/pandadev/.config/vesktop/sessionData/Local Storage/leveldb/MANIFEST-000001
+2024/02/22-15:54:40.281 3ed7 Recovering log #4
+2024/02/22-15:54:40.282 3ed7 Reusing old log /home/pandadev/.config/vesktop/sessionData/Local Storage/leveldb/000004.log 
+2024/02/22-16:09:37.210 3ed9 Level-0 table #8: started
+2024/02/22-16:09:37.215 3ed9 Level-0 table #8: 21431 bytes OK
+2024/02/22-16:09:37.219 3ed9 Delete type=0 #4
+2024/02/22-16:44:23.551 3ed9 Level-0 table #10: started
+2024/02/22-16:44:23.560 3ed9 Level-0 table #10: 35045 bytes OK
+2024/02/22-16:44:23.564 3ed9 Delete type=0 #7
