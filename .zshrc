@@ -48,6 +48,7 @@ alias btop="btop --utf-force"
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+export PATH="$HOME/.local/bin:$PATH"
 export GPG_TTY=$(tty)
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(atuin init zsh)"
