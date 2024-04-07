@@ -10,7 +10,7 @@
     </td>
   </tr>
   <tr></table>
-  <br>
+  <h6 align="center"> <i>Click on the images to get to the corresponding dotfiles </i></h6>
 <br>
 <h2 align="center">  MacOS</h2><br>
 
