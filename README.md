@@ -1,34 +1,31 @@
-# Dotfiles
-I use Arch btw
+<h1 align="center"> .dotfiles </h1>
 
-## Commands
-```zsh
-# ohmyzsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-```zsh
-# powerlevel10k
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-```
-```zsh
-# zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-```
-```zsh
-# fast-syntax-highlighting
-git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git \
-  ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
-```
-```zsh
-# pfetch
-git clone https://github.com/Un1q32/pfetch
-sudo apt install make
-cd pfetch/
-sudo make install
-cd ..
-rm -rf pfetch
-```
+<br>
+  <table align="center"><tr>
+    <td>
+        <a href="https://github.com/Haruno19/dotfiles/tree/main#--macos"> <b>MacOS</b> </a>
+    </td>
+    <td>
+        <a href="https://github.com/Haruno19/dotfiles/tree/main#--linux"> <b>Linux</b> </a>
+    </td>
+  </tr>
+  <tr></table>
+  <br>
+<br>
+<h2 align="center">  MacOS</h2><br>
 
-## Links
-Generator for ascii art
-https://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow
+<h3 align="center"> yabai </h3>
+<p align="center">
+  <a href="https://github.com/Haruno19/dotfiles/tree/main/MacOS/gruvbox">
+    <img width="70%" alt="raindrop" src="https://github.com/Haruno19/dotfiles/assets/61376940/b7ecc80d-ea8a-409e-94c8-e6fff5eadc20">
+  </a>
+</p><br><br>
+
+<h2 align="center"> ❐ Linux</h2><br>
+
+<h3 align="center"> hyprland </h3>
+<p align="center">
+  <a href="https://github.com/Haruno19/dotfiles/tree/main/Linux/Lain">
+    <img width="70%" alt="lain" src="https://user-images.githubusercontent.com/61376940/182816404-28e5beef-42ad-4b22-a537-11d93eb2e52d.png">
+  </a>
+</p><br>
