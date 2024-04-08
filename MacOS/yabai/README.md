@@ -1,5 +1,4 @@
-<h1 align="center"> yabai </h1>
-<h2> Description & Details</h2>  
+<h1 align="center"> yabai <br><br> </h1>
 <img width="50%" align="left" src="./showcase.png">
 
 <h6><i>Created on 08 April 2024</i></h6><br>
