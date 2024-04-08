@@ -11,9 +11,9 @@
 
   VS Code theme
 
-  <td>
+  <table><tr><td>
         <a href="https://marketplace.visualstudio.com/items?itemName=raunofreiberg.vesper"> <b>Vesper</b> </a>
-  </td>
+  </td></tr></table>
 
   <br>
   <br>
@@ -21,15 +21,20 @@
 
   Firefox userChrome.css
 
-  <td>
+  <table>
+    <tr>
+      <td>
+        <a href="https://github.com/0PandaDEV/dotfiles/tree/main/MacOS/yabai/userChrome.css"> <b>userChrome.css</b> </a>
+      </td>
+      <td>
         <a href="https://addons.mozilla.org/en-US/firefox/addon/adaptive-tab-bar-colour/"> <b>Adaptive Tab Bar Color</b> </a>
-  </td>
+      </td>
+    </tr>
+  </table>
 
-  <td>
-        <a href="https://github.com/0PandaDEV/dotfiles/tree/main/MacOS/yabai/userChrome.css">
-        <b>userChrome.css</b>
-        </a>
-  </td>
+  <br>
+  <br>
+  <br>
 
   <table><tr><td>
         <a href="https://twitter.com/javilopen/status/1765784258335895685"> <b>Wallpaper</b> </a>
