@@ -1,5 +1,5 @@
 <h1 align="center"> yabai <br><br> </h1>
-<img width="50%" align="left" src="https://github.com/0PandaDEV/dotfiles/tree/main/images/showcase.png">
+<img width="50%" align="left" src="https://github.com/0PandaDEV/dotfiles/blob/main/images/showcase.png?raw=true">
 
 <h6><i>Created on 08 April 2024</i></h6><br>
 <p>
