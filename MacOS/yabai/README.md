@@ -57,7 +57,7 @@
         <a href="https://github.com/0PandaDEV/dotfiles/tree/main/Wallpapers/yabai.png"> <b>Wallpaper</b> </a>
       </td>
       <td>
-        <a href="https://github.com/0PandaDEV/dotfiles/tree/main/Linux/yabai/INSTALLATION.md"> <b>INSTALLATION helper</b> </a>
+        <a href="https://github.com/0PandaDEV/dotfiles/tree/main/MacOS/yabai/INSTALLATION.md"> <b>INSTALLATION helper</b> </a>
       </td>
     </tr>
   </table>
