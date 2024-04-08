@@ -1,4 +1,4 @@
-source ~/.zsh/aditya.zsh-theme
+source ~/.config/zsh/aditya.zsh-theme
 source ~/.zsh/dow.sh
 
 COLOR='\e[38;2;255;93;0m'
@@ -45,9 +45,6 @@ source $ZSH/oh-my-zsh.sh
 ################################
 
 alias python=python3
-alias panda-01="ssh pandadev@100.86.67.57"
-alias panda-02="ssh pandadev@100.108.185.2"
-alias pandadev="ssh pandadev@100.81.202.94"
 
 export PNPM_HOME="/Users/pandadev/Library/pnpm"
 case ":$PATH:" in
@@ -57,41 +54,15 @@ esac
 
 export PATH=$PATH:/Users/pandadev/.spicetify
 
-# bun completions
 [ -s "/Users/pandadev/.bun/_bun" ] && source "/Users/pandadev/.bun/_bun"
 
-# bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-# fnm
+
 export PATH="/Users/pandadev/Library/Application Support/fnm:$PATH"
 eval "`fnm env`"
 
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 export GPG_TTY=$(tty)
-
 export PATH="$PATH:$HOME/.local/bin"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# CodeWhisperer post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh"
-
-if [[ "$USER" == "root" ]]; then
-  PROMPT="%(?:%{$fg_bold[red]%}%{$fg_bold[yellow]%}%{$fg_bold[red]%} :%{$fg_bold[red]%} )"
-  PROMPT+='%{$fg[cyan]%}  %c%{$reset_color%} $(git_prompt_info)'
-else
-  PROMPT="%(?:%{$fg_bold[red]%}%{$fg_bold[green]%}%{$fg_bold[yellow]%} :%{$fg_bold[red]%} )"
-  PROMPT+='%{$fg[cyan]%}  %c%{$reset_color%} $(git_prompt_info)'
-fi
-
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}  git:(%{$fg[red]%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
