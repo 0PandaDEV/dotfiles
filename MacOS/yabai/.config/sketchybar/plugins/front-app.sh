@@ -33,7 +33,7 @@ case $INFO in
   "IINA")
     ICON=󰕼
     ;;
-  "Tabby")
+  "iTerm")
     ICON=󰄛
     ;;
   "Messages")
@@ -59,6 +59,9 @@ case $INFO in
     ;;
   "Transmission")
     ICON=󰶘
+    ;;
+  "iTerm2")
+    ICON=
     ;;
   *)
     INFO="Unknown"
