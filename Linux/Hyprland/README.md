@@ -47,7 +47,7 @@
         <a href="https://github.com/0PandaDEV/dotfiles/tree/main/Wallpapers/hyprland.png"> <b>Wallpaper</b> </a>
       </td>
       <td>
-        <a href="https://github.com/0PandaDEV/dotfiles/tree/main/Linux/Hyprland/INSTALLTION.md"> <b>INSTALLATION</b> </a>
+        <a href="https://github.com/0PandaDEV/dotfiles/tree/main/Linux/Hyprland/INSTALLATION.md"> <b>INSTALLATION</b> </a>
       </td>
     </tr>
   </table>
