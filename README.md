@@ -26,7 +26,7 @@
 
 <h3 align="center"> hyprland </h3>
 <p align="center">
-  <a href="https://github.com/0PandaDEV/dotfiles/tree/main/Linux/hyperland">
+  <a href="https://github.com/0PandaDEV/dotfiles/tree/main/Linux/Hyperland">
     <img width="70%" alt="lain" src="https://user-images.githubusercontent.com/61376940/182816404-28e5beef-42ad-4b22-a537-11d93eb2e52d.png">
   </a>
 </p><br>
