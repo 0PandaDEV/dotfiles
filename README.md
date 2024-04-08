@@ -18,7 +18,7 @@
 <h3 align="center"> yabai </h3>
 <p align="center">
   <a href="https://github.com/0PandaDEV/dotfiles/tree/main/MacOS/yabai">
-    <img width="70%" alt="raindrop" src="./MacOS/yabai/yabai.png">
+    <img width="70%" alt="raindrop" src="./assets/yabai.png">
   </a>
 </p><br><br>
 
