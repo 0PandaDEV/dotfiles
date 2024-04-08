@@ -1,4 +1,6 @@
-# Installation
+# Installation helper <br>
+
+<br>
 
 ```zsh
 # ohmyzsh
@@ -39,6 +41,8 @@ yabai --start-service
 brew install koekeishiya/formulae/skhd
 skhd --start-service
 ```
+
+<br>
 
 Generator for ascii art
 <https://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow>
