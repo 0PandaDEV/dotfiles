@@ -52,6 +52,6 @@
   More resources
 
   <table><tr><td>
-        <a href="https://twitter.com/javilopen/status/1765784258335895685"> <b>Wallpaper</b> </a>
+        <a href="https://github.com/0PandaDEV/dotfiles/tree/main/Wallpapers/yabai.png"> <b>Wallpaper</b> </a>
   </td></tr></table>
 </p>
