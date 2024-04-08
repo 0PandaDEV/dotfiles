@@ -51,7 +51,14 @@
 
   More resources
 
-  <table><tr><td>
+  <table>
+    <tr>
+      <td>
         <a href="https://github.com/0PandaDEV/dotfiles/tree/main/Wallpapers/yabai.png"> <b>Wallpaper</b> </a>
-  </td></tr></table>
+      </td>
+      <td>
+        <a href="https://github.com/0PandaDEV/dotfiles/tree/main/Linux/yabai/INSTALLATION.md"> <b>INSTALLATION</b> </a>
+      </td>
+    </tr>
+  </table>
 </p>
