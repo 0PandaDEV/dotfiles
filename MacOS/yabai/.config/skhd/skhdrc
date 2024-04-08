@@ -1,0 +1,48 @@
+# toggle window split type
+alt - e : yabai -m window --toggle split
+
+# close window
+alt - x : yabai -m window --close
+
+# minimize window
+alt - m : yabai -m window --minimize
+
+# rotate tree
+alt - r : yabai -m space --rotate 90
+
+# mirror tree y-axis
+alt - y : yabai -m space --mirror y-axis
+
+# toggle window parent zoom
+alt - d : yabai -m window --toggle zoom-fullscreen
+
+# float / unfloat window and center on screen
+alt - t : yabai -m window --toggle float;\
+          yabai -m window --grid 4:4:1:1:2:2
+
+# toggle window fullscreen zoom
+alt - f : yabai -m window --toggle zoom-fullscreen
+
+# create a new space and follow focus
+alt - n : yabai -m space --create && \
+                  index="$(yabai -m query --displays --display | jq '.spaces[-1]')" && \
+                  yabai -m space --focus "${index}"
+
+# balance size of windows
+alt - 0 : yabai -m space --balance
+
+# move window
+cmd + shift - left : yabai -m window --warp west
+cmd + shift - down : if [ $(yabai -m query --windows is-floating --window | jq -re '."is-floating"') = true ]; then yabai -m window --toggle float; fi
+cmd + shift - up : yabai -m window --on float && \
+                   yabai -m window --on zoom-fullscreen
+cmd + shift - right : yabai -m window --warp east
+
+# change layout of desktop
+ctrl + alt - a : yabai -m space --layout bsp
+ctrl + alt - d : yabai -m space --layout float
+
+# restart yabai
+ctrl + alt + cmd - r : skhd --restart-service && \
+                       yabai --restart-service && \
+                       sketchybar --reload

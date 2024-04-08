@@ -1,0 +1,89 @@
+BG=0x00000000
+
+FONT="CommitMono Nerd Font"
+FONT_SIZE=14
+FONT_COLOR=0xFFFEFEFE
+ICON_FONT_SIZE=16
+
+ITEM_PADDING=16
+ITEM_COLOR=0xFF000000
+GAP=10
+
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
+
+sketchybar --bar \
+  y_offset=8 \
+  height=38 \
+  corner_radius=100 \
+  blur_radius=8 \
+  border_width=0 \
+  border_color=0x28222222 \
+  padding_left=11 \
+  padding_right=11 \
+  shadow.color=0x28000000 \
+  shadow.angle=0 \
+  color=$BG \
+  notch_width=100 \
+
+sketchybar --default \
+  label.font="$FONT:Regular:$FONT_SIZE" label.color=$FONT_COLOR \
+  label.padding_left=$ITEM_PADDING label.padding_right=$ITEM_PADDING \
+  icon.font="$FONT:Regular:$ICON_FONT_SIZE"\
+  icon.padding_left=$ITEM_PADDING \
+  background.color=$ITEM_COLOR \
+  background.padding_right=$GAP background.height=32 \
+  background.corner_radius=100
+
+sketchybar --add item os left \
+  --set os \
+  icon= icon.color=0xfffefefe \
+  icon.font.size=20 icon.y_offset=1 \
+  icon.padding_left=10 icon.padding_right=0 \
+  label.padding_left=0 label.padding_right=8 \
+  background.corner_radius=100 \
+  click_script="sketchybar -m --set \$NAME popup.drawing=toggle" \
+  popup.background.corner_radius=3 popup.background.border_color=$ITEM_COLOR
+
+sketchybar --add item os.preferences popup.os \
+  --set os.preferences icon= \
+  label="Preferences" \
+  click_script="open -a 'System Preferences'; sketchybar -m --set os popup.drawing=toggle"
+
+sketchybar --add item user left \
+  --set user \
+  label="$(whoami)" label.font.style="Bold" \
+  icon=󰀄 icon.color=0xffc7ea46
+
+sketchybar --add item clock right \
+  --set clock \
+  script="$PLUGIN_DIR/clock.sh" \
+  background.padding_right=0 \
+  update_freq=1
+
+sketchybar --add item stats right \
+  --set stats \
+  icon= \
+  script="$PLUGIN_DIR/stats.sh" \
+  update_freq=1 \
+  --subscribe stats mouse.clicked
+
+sketchybar --add item battery right \
+  --set battery \
+  script="$PLUGIN_DIR/battery.sh" \
+  update_freq=1
+
+sketchybar --add item wifi right \
+  --set wifi \
+  script="$PLUGIN_DIR/wifi.sh" \
+  --subscribe wifi wifi_change
+  
+
+sketchybar --add item front-app left \
+  --set front-app \
+  script="$PLUGIN_DIR/front-app.sh" \
+  label.font.style="Bold" \
+  icon.padding_left=20 label.padding_right=20 \
+  --subscribe front-app front_app_switched
+
+sketchybar --update
+
