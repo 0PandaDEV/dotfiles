@@ -3,10 +3,10 @@
 <br>
   <table align="center"><tr>
     <td>
-        <a href="https://github.com/0PandaDEV/dotfiles/tree/main#--macos"> <b>MacOS</b> </a>
+        <a href="#--macos"> <b>MacOS</b> </a>
     </td>
     <td>
-        <a href="https://github.com/0PandaDEV/dotfiles/tree/main#--linux"> <b>Linux</b> </a>
+        <a href="#--linux"> <b>Linux</b> </a>
     </td>
   </tr>
   <tr></table>
