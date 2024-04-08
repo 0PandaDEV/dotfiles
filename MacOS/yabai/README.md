@@ -22,10 +22,10 @@
   <table>
     <tr>
       <td>
-        <a href="https://github.com/0PandaDEV/dotfiles/tree/main/MacOS/yabai/userChrome.css"> <b>userChrome.css</b> </a>
+        <a href="https://addons.mozilla.org/en-US/firefox/addon/adaptive-tab-bar-colour/"> <b>Adaptive Tab Bar Color</b> </a>
       </td>
       <td>
-        <a href="https://addons.mozilla.org/en-US/firefox/addon/adaptive-tab-bar-colour/"> <b>Adaptive Tab Bar Color</b> </a>
+        <a href="https://github.com/0PandaDEV/dotfiles/tree/main/MacOS/yabai/userChrome.css"> <b>userChrome.css</b> </a>
       </td>
     </tr>
   </table>
