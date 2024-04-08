@@ -17,7 +17,6 @@
 
   <br>
   <br>
-  <br>
 
   Firefox userChrome.css
 
@@ -32,7 +31,6 @@
     </tr>
   </table>
 
-  <br>
   <br>
   <br>
 
