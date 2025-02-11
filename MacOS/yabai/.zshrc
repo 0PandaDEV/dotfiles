@@ -1,5 +1,4 @@
 source ~/.config/zsh/aditya.zsh-theme
-source ~/.zsh/dow.sh
 
 COLOR='\e[38;2;255;93;0m'
 RESET='\e[0m'
