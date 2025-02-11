@@ -19,15 +19,6 @@ title="${COLOR}
 
 echo $title
 
-export PF_ASCII="openbsd"
-
-export PF_INFO="ascii os host kernel uptime pkgs memory palette"
-export PF_ALIGN="8"
-export PF_COL1=3
-export PF_COL3=3
-export PF_COL2=7
-
-# pfetch
 neofetch
 
 ################################
@@ -37,9 +28,8 @@ neofetch
 # fi
 
 export ZSH="$HOME/.oh-my-zsh"
-# ZSH_THEME="powerlevel10k/powerlevel10k"
 
-plugins=(git zsh-autosuggestions fast-syntax-highlighting zsh-syntax-highlighting)
+plugins=(git zsh-autosuggestions fast-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 ################################
