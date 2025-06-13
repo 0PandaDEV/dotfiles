@@ -1,0 +1,79 @@
+@use "sass:color";
+
+$background: #131313;
+$text: #e1e1e1;
+$text-secondary: #585858;
+$border: #ffffff0d;
+
+* {
+  font-family: CozetteVector;
+  font-size: 14px;
+}
+
+.Bar {
+  color: $text;
+  
+  .Widget {
+    background-color: $background;
+    padding: 2px 6px;
+  }
+
+  .Workspaces {
+    button {
+      background-color: transparent;
+      padding: 0 2px;
+      transition: 200ms;
+
+      .workspace-indicator {
+        min-width: 4px;
+        min-height: 4px;
+        background-color: $text-secondary;
+        transition: 200ms;
+      }
+
+      &:hover .workspace-indicator {
+        background-color: $text-secondary;
+      }
+
+      &:active .workspace-indicator {
+        background-color: $text-secondary;
+      }
+    }
+
+    .workspace-1,
+    .workspace-6 {
+      .workspace-indicator {
+        background-color: $text;
+      }
+
+      &:hover .workspace-indicator {
+        background-color: $text;
+      }
+    }
+
+    .focused {
+      .workspace-indicator {
+        min-width: 14px;
+        min-height: 14px;
+        background-color: $text;
+      }
+    }
+  }
+
+  .SysTray {
+    button {
+      padding: 0 4px;
+    }
+  }
+
+  .Media {
+    padding: 0;
+
+    .Cover {
+      min-height: 24px;
+      min-width: 24px;
+      background-position: center;
+      background-size: contain;
+    }
+  }
+}

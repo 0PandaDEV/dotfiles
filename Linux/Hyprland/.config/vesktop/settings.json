@@ -1,8 +1,0 @@
-{
-    "minimizeToTray": "on",
-    "discordBranch": "stable",
-    "arRPC": "on",
-    "splashColor": "rgb(220, 221, 222)",
-    "splashBackground": "rgb(0, 0, 0)",
-    "customTitleBar": true
-}
