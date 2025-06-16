@@ -7,26 +7,30 @@ export default function Media() {
 
   return (
     <box className="Media Widget" child={
-      bind(mpris, "players").as((ps) =>
-        ps[0] ? (
-          <box>
-            <box
-              className="Cover"
-              valign={Gtk.Align.CENTER}
-              css={bind(ps[0], "coverArt").as(
-                (cover) => `background-image: url('${cover}');`
-              )}
-            />
-            <label
-              label={bind(ps[0], "metadata").as(
-                () => `${ps[0].title} - ${ps[0].artist}`
-              )}
-            />
-          </box>
-        ) : (
-          <label label="Nothing Playing" />
-        )
-      )
+      bind(mpris, "players").as((players) => {
+        const ciderPlayer = players.find(player => player.identity === "Cider");
+        
+        if (ciderPlayer) {
+          return (
+            <box>
+              <box
+                className="Cover"
+                valign={Gtk.Align.CENTER}
+                css={bind(ciderPlayer, "coverArt").as(
+                  (cover) => `background-image: url('${cover}');`
+                )}
+              />
+              <label
+                label={bind(ciderPlayer, "metadata").as(
+                  () => `${ciderPlayer.title} - ${ciderPlayer.artist}`
+                )}
+              />
+            </box>
+          );
+        } else {
+          return <label label="Nothing Playing" />;
+        }
+      })
     } />
   );
 }
