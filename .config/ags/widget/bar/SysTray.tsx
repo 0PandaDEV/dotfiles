@@ -5,7 +5,7 @@ export default function SysTray() {
   const tray = Tray.get_default();
 
   return (
-    <box className="SysTray Widget">
+    <box className="SysTray Widget" spacing={8}>
       {bind(tray, "items").as((items) =>
         items.map((item) => (
           <menubutton
