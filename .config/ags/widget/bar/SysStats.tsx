@@ -1,6 +1,9 @@
 import { Variable } from "astal";
+import Network from "gi://AstalNetwork?version=0.1";
 
 function formatBytes(bytes: number): string {
+  if (bytes === 0) return "0B/s";
+  if (bytes < 0) return `0B/s`;
   if (bytes < 1024) return `${bytes.toFixed(0)}B/s`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)}KB/s`;
   if (bytes < 1024 * 1024 * 1024)
@@ -9,9 +12,6 @@ function formatBytes(bytes: number): string {
 }
 
 export default function SysStats() {
-  let lastRx = 0;
-  let lastTx = 0;
-
   const cpu = Variable("0.0").poll(1000, ["top", "-bn1"], (out: string) => {
     const match = out.match(/%Cpu.*?(\d+\.\d+)/);
     return match ? match[1] : "0.0";
@@ -27,37 +27,84 @@ export default function SysStats() {
   const netDown = Variable("0B/s");
   const netUp = Variable("0B/s");
 
-  const networkPoll = Variable("").poll(
-    1000,
-    ["cat", "/proc/net/dev"],
-    (out: string) => {
-      let rx = 0;
-      let tx = 0;
+  const netStats = Variable("⇣ 0B/s ⬝ ⇡ 0B/s");
 
-      out
-        .split("\n")
-        .slice(2)
-        .forEach((line) => {
-          if (line.trim()) {
-            const parts = line.trim().split(/\s+/);
-            rx += parseInt(parts[1]);
-            tx += parseInt(parts[9]);
+  const updateNetStats = () => {
+    netStats.set(`⇣ ${netDown.get()} ⬝ ⇡ ${netUp.get()}`);
+  };
+
+  netDown.subscribe(updateNetStats);
+  netUp.subscribe(updateNetStats);
+
+  let lastRx = 0;
+  let lastTx = 0;
+  let lastTime = 0;
+
+  Variable("").poll(1000, ["cat", "/proc/net/dev"], (out: string) => {
+    try {
+      const now = Date.now() / 1000;
+      console.log("Network stats poll - timestamp:", now);
+
+      const lines = out.split("\n");
+      const interfaceLines = lines.filter(
+        (line) =>
+          line.includes(":") && !line.includes("lo:") && line.trim().length > 0
+      );
+      console.log("Found network interfaces:", interfaceLines.length);
+
+      if (interfaceLines.length > 0) {
+        let interfaceLine =
+          interfaceLines.find((line) => line.includes("enp4s0:")) ||
+          interfaceLines[0];
+        console.log("Using interface:", interfaceLine.trim().split(":")[0]);
+
+        const parts = interfaceLine.trim().split(/\s+/);
+
+        const rx = parseInt(parts[1]);
+        const tx = parseInt(parts[9]);
+        console.log("Raw values - RX:", rx, "TX:", tx);
+
+        if (lastTime > 0) {
+          const timeDiff = now - lastTime;
+          console.log("Time difference:", timeDiff, "seconds");
+
+          if (timeDiff > 0) {
+            const rxRate = (rx - lastRx) / timeDiff;
+            const txRate = (tx - lastTx) / timeDiff;
+            console.log("Calculated rates - RX:", rxRate, "TX:", txRate);
+
+            netDown.set(formatBytes(rxRate));
+            netUp.set(formatBytes(txRate));
+            console.log("Formatted - Down:", netDown.get(), "Up:", netUp.get());
           }
-        });
+        }
 
-      if (lastRx > 0) {
-        const rxDiff = rx - lastRx;
-        const txDiff = tx - lastTx;
-        netDown.set(formatBytes(rxDiff));
-        netUp.set(formatBytes(txDiff));
+        lastTime = now;
+        lastRx = rx;
+        lastTx = tx;
       }
-
-      lastRx = rx;
-      lastTx = tx;
-
-      return `${rx} ${tx}`;
+    } catch (e) {
+      console.error("Error parsing network stats:", e);
     }
-  );
+
+    return "";
+  });
+
+  const network = Network.get_default();
+  const netState = Variable("disconnected");
+
+  const updateNetState = () => {
+    try {
+      const state = network.state;
+
+      netState.set(state.toString());
+    } catch (e) {
+      console.error("Error getting network state:", e);
+    }
+  };
+
+  updateNetState();
+  const stateInterval = setInterval(updateNetState, 2000);
 
   return (
     <box
@@ -66,7 +113,10 @@ export default function SysStats() {
       onDestroy={() => {
         cpu.drop();
         ram.drop();
-        networkPoll.drop();
+        netDown.drop();
+        netUp.drop();
+        netStats.drop();
+        clearInterval(stateInterval);
       }}>
       {[
         <box className="stat">
@@ -78,7 +128,7 @@ export default function SysStats() {
         </box>,
 
         <box className="stat">
-          {[<label label={`⇣ ${netDown.get()} ⬝ ⇡ ${netUp.get()}`} />]}
+          {[<label label={netStats((stats) => stats)} />]}
         </box>,
       ]}
     </box>
