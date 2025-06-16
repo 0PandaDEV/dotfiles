@@ -1,5 +1,4 @@
 import { Variable } from "astal";
-import Network from "gi://AstalNetwork?version=0.1";
 
 function formatBytes(bytes: number): string {
   if (bytes === 0) return "0B/s";
@@ -26,7 +25,6 @@ export default function SysStats() {
 
   const netDown = Variable("0B/s");
   const netUp = Variable("0B/s");
-
   const netStats = Variable("⇣ 0B/s ⬝ ⇡ 0B/s");
 
   const updateNetStats = () => {
@@ -43,39 +41,28 @@ export default function SysStats() {
   Variable("").poll(1000, ["cat", "/proc/net/dev"], (out: string) => {
     try {
       const now = Date.now() / 1000;
-      console.log("Network stats poll - timestamp:", now);
-
       const lines = out.split("\n");
       const interfaceLines = lines.filter(
         (line) =>
           line.includes(":") && !line.includes("lo:") && line.trim().length > 0
       );
-      console.log("Found network interfaces:", interfaceLines.length);
 
       if (interfaceLines.length > 0) {
-        let interfaceLine =
+        const interfaceLine =
           interfaceLines.find((line) => line.includes("enp4s0:")) ||
           interfaceLines[0];
-        console.log("Using interface:", interfaceLine.trim().split(":")[0]);
 
         const parts = interfaceLine.trim().split(/\s+/);
-
         const rx = parseInt(parts[1]);
         const tx = parseInt(parts[9]);
-        console.log("Raw values - RX:", rx, "TX:", tx);
 
         if (lastTime > 0) {
           const timeDiff = now - lastTime;
-          console.log("Time difference:", timeDiff, "seconds");
-
           if (timeDiff > 0) {
             const rxRate = (rx - lastRx) / timeDiff;
             const txRate = (tx - lastTx) / timeDiff;
-            console.log("Calculated rates - RX:", rxRate, "TX:", txRate);
-
             netDown.set(formatBytes(rxRate));
             netUp.set(formatBytes(txRate));
-            console.log("Formatted - Down:", netDown.get(), "Up:", netUp.get());
           }
         }
 
@@ -90,22 +77,6 @@ export default function SysStats() {
     return "";
   });
 
-  const network = Network.get_default();
-  const netState = Variable("disconnected");
-
-  const updateNetState = () => {
-    try {
-      const state = network.state;
-
-      netState.set(state.toString());
-    } catch (e) {
-      console.error("Error getting network state:", e);
-    }
-  };
-
-  updateNetState();
-  const stateInterval = setInterval(updateNetState, 2000);
-
   return (
     <box
       className="SysStats Widget"
@@ -116,7 +87,6 @@ export default function SysStats() {
         netDown.drop();
         netUp.drop();
         netStats.drop();
-        clearInterval(stateInterval);
       }}>
       {[
         <box className="stat">
