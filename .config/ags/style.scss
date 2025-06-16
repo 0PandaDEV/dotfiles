@@ -57,13 +57,21 @@ button {
 
   .SysStats {
     padding: 0;
-    
+
     .stat {
       background-color: $element;
       padding: 0 6px;
       min-height: 12px;
       font-size: 10px;
       margin: 2px 0;
+
+      &:first-child {
+        margin-left: 2px;
+      }
+
+      &:last-child {
+        margin-right: 2px;
+      }
     }
   }
 
