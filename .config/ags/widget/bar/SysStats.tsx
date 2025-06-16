@@ -1,6 +1,6 @@
 import { Variable } from "astal";
 
-function formatBytes(bytes: number): string {
+function _formatBytes(bytes: number): string {
   if (bytes === 0) return "0B/s";
   if (bytes < 0) return `0B/s`;
   if (bytes < 1024) return `${bytes.toFixed(0)}B/s`;
@@ -8,6 +8,11 @@ function formatBytes(bytes: number): string {
   if (bytes < 1024 * 1024 * 1024)
     return `${(bytes / (1024 * 1024)).toFixed(1)}MB/s`;
   return `${(bytes / (1024 * 1024 * 1024)).toFixed(1)}GB/s`;
+}
+
+function formatBytesMB(bytes: number): string {
+  if (bytes <= 0) return "0MB/s";
+  return `${Math.round(bytes / (1024 * 1024))}MB/s`;
 }
 
 export default function SysStats() {
@@ -20,12 +25,12 @@ export default function SysStats() {
     const line = out.split("\n").find((l) => l.includes("Mem"));
     if (!line) return "0.0";
     const parts = line.split(/\s+/);
-    return ((parseInt(parts[2]) / parseInt(parts[1])) * 100).toFixed(1);
+    return Math.round((parseInt(parts[2]) / parseInt(parts[1])) * 100).toString();
   });
 
-  const netDown = Variable("0B/s");
-  const netUp = Variable("0B/s");
-  const netStats = Variable("⇣ 0B/s ⬝ ⇡ 0B/s");
+  const netDown = Variable("0MB/s");
+  const netUp = Variable("0MB/s");
+  const netStats = Variable("⇣ 0MB/s ⬝ ⇡ 0MB/s");
 
   const updateNetStats = () => {
     netStats.set(`⇣ ${netDown.get()} ⬝ ⇡ ${netUp.get()}`);
@@ -61,8 +66,8 @@ export default function SysStats() {
           if (timeDiff > 0) {
             const rxRate = (rx - lastRx) / timeDiff;
             const txRate = (tx - lastTx) / timeDiff;
-            netDown.set(formatBytes(rxRate));
-            netUp.set(formatBytes(txRate));
+            netDown.set(formatBytesMB(rxRate));
+            netUp.set(formatBytesMB(txRate));
           }
         }
 
@@ -90,7 +95,9 @@ export default function SysStats() {
       }}>
       {[
         <box className="stat">
-          {[<label label={cpu((val) => ` ${val}%`)} />]}
+          {[
+            <label label={cpu((val) => ` ${Math.round(parseFloat(val))}%`)} />,
+          ]}
         </box>,
 
         <box className="stat">
