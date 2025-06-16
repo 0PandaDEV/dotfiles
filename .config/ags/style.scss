@@ -23,13 +23,13 @@ button {
 
   .Widget {
     background-color: $background;
-    padding: 0px 6px;
-    min-height: 24px;
+    padding: 0px 8px;
   }
 
   .Workspaces {
+    padding: 0 4px;
+
     button {
-      padding: 0;
       min-width: 18px;
 
       .workspace-indicator {
@@ -73,10 +73,6 @@ button {
         margin-right: 2px;
       }
     }
-  }
-
-  .SysTray button {
-    padding: 0 4px;
   }
 
   .Media {
