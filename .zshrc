@@ -1,6 +1,6 @@
 clear
 
-source ~/.config/zsh/aditya.zsh-theme
+source ~/.config/zsh/arch.zsh-theme
 
 COLOR='\e[38;2;255;93;0m'
 RESET='\e[0m'
