@@ -35,6 +35,7 @@ message {
 listview {
     padding: 8px;
     background-color: @bg;
+    border: 1px;
 }
 
 element {
@@ -64,6 +65,7 @@ inputbar {
     background-color: @bg;
     index: 0;
     text-color: @text;
+    border: 1px;
 }
 
 inputbar {
