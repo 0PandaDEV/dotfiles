@@ -1,0 +1,57 @@
+@use "../variables" as vars;
+
+.LauncherWindow {
+  background: vars.$background;
+}
+
+.Launcher {
+  .SearchEntry {
+    background-color: vars.$background;
+    color: vars.$text;
+    caret-color: vars.$text;
+    min-height: 36px;
+    padding: 0 12px;
+    margin: 8px 0;
+    
+    &:focus {
+      border: 1px solid vars.$border;
+    }
+  }
+  
+  .ResultsContainer {
+    margin-top: 8px;
+  }
+  
+  .ResultsList {
+    margin: 4px;
+    
+    .AppItem {
+      background-color: vars.$background;
+      padding: 8px;
+      margin: 2px 0;
+      transition: background-color 0.2s ease;
+      
+      &:hover, &.selected {
+        background-color: vars.$element;
+      }
+      
+      .app-name {
+        color: vars.$text;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      
+      .app-description {
+        color: vars.$text-secondary;
+        font-size: 12px;
+        margin-top: 2px;
+      }
+    }
+  }
+  
+  .EmptyMessage {
+    color: vars.$text-secondary;
+    font-size: 14px;
+    margin: 24px 0;
+  }
+} 
