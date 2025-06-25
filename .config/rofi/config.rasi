@@ -1,0 +1,6 @@
+configuration {
+  show-icons: true;
+  font: "CozetteVector 14";
+}
+
+@theme "theme"

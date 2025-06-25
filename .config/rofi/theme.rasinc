@@ -1,0 +1,71 @@
+* {
+    bg: #131313;
+    element: #1b1b1b;
+    text: #e1e1e1;
+    text-secondary: #585858;
+    border: #ffffff0d;
+
+    spacing: 4;
+    background-color: @bg;
+    border-color: @border;
+    anchor: north;
+    location: center;
+    text-color: @text;
+}
+
+window {
+    transparency: "real";
+    background-color: #00000000;
+    border: 0;
+}
+
+mainbox {
+    spacing: 4px;
+    background-color: #00000000;
+}
+
+textbox {
+    text-color: @text;
+}
+
+message {
+    text-color: @text;
+}
+
+listview {
+    padding: 8px;
+    background-color: @bg;
+}
+
+element {
+    border: 0;
+    padding: 4px;
+    highlight: bold;
+    spacing: 8px;
+}
+
+element-text {
+    background-color: inherit;
+    text-color: @text-secondary;
+}
+
+element-text selected {
+    text-color: @text;
+}
+
+element selected {
+    text-color: @text;
+    background-color: @element;
+}
+
+inputbar {
+    spacing: 0;
+    padding: 8px 10px;
+    background-color: @bg;
+    index: 0;
+    text-color: @text;
+}
+
+inputbar {
+    children: [ entry ];
+}
