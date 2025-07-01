@@ -53,3 +53,7 @@ fi
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+if [[ "$ARGV0" == "/opt/cursor-bin/cursor-bin.AppImage" ]]; then
+  unset ARGV0
+fi
