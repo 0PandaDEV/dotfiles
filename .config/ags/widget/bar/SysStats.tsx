@@ -23,9 +23,11 @@ export default function SysStats() {
 
   const ram = Variable("0.0").poll(2000, ["free", "-m"], (out: string) => {
     const line = out.split("\n").find((l) => l.includes("Mem"));
-    if (!line) return "0.0";
+    if (!line) return "0/0";
     const parts = line.split(/\s+/);
-    return Math.round((parseInt(parts[2]) / parseInt(parts[1])) * 100).toString();
+    const usedGB = (parseInt(parts[2]) / 1024).toFixed(1);
+    const totalGB = (parseInt(parts[1]) / 1024).toFixed(1);
+    return `${usedGB} GB / ${totalGB} GB`;
   });
 
   const netDown = Variable("0MB/s");
@@ -101,7 +103,7 @@ export default function SysStats() {
         </box>,
 
         <box className="stat">
-          {[<label label={ram((val) => `☰ ${val}%`)} />]}
+          {[<label label={ram((val) => `☰ ${val}`)} />]}
         </box>,
 
         <box className="stat">
