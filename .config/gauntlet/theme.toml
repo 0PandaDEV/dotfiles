@@ -1,0 +1,23 @@
+mode = "dark"
+
+background = [
+    "#131313",
+    "#1b1b1b",
+    "#1b1b1b",
+    "#131313",
+]
+
+text = [
+    "#e1e1e1",
+    "#C8C8C8",
+    "#585858",
+    "#323232"
+]
+
+[window.border]
+radius = 10
+width = 1
+color = "#1F1F1F"
+
+[content.border]
+radius = 8.0
