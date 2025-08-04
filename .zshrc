@@ -38,6 +38,8 @@ source ~/.config/zsh/aliases.zsh
 ######################################################################################
 
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+
 export GPG_TTY=$(tty)
 eval "$(zoxide init --cmd cd zsh)"
 
