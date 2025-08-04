@@ -1,0 +1,95 @@
+[
+    {
+        "name": "Spotify",
+        "type": "audio_sink",
+        "args": {},
+        "async": true,
+        "priority": 1,
+        "home": "OnlyHome",
+        "spawn_focus": false,
+        "binds": [
+            {
+                "bind": "Return",
+                "callback": "playpause",
+                "exit": false
+            },
+            {
+                "bind": "control+l",
+                "callback": "next",
+                "exit": false
+            },
+            {
+                "bind": "control+h",
+                "callback": "previous",
+                "exit": false
+            }
+        ],
+        "actions": [
+            {
+                "name": "Skip",
+                "icon": "media-seek-forward",
+                "method": "inner.next",
+                "exit": false
+            },
+            {
+                "name": "Previous",
+                "icon": "media-seek-backward",
+                "method": "inner.previous",
+                "exit": false
+            }
+        ]
+    },
+    {
+        "name": "Calculator",
+        "type": "calculation",
+        "args": {
+            "capabilities": [
+                "calc.math",
+                "calc.units",
+                "calc.currencies", 
+                "calc.lengths",
+                "calc.weights",
+                "calc.volumes",
+                "calc.temperatures"
+            ]
+        },
+        "priority": 1,
+        "on_return": "copy"
+    },
+    {
+        "name": "App Launcher",
+        "alias": "app",
+        "type": "app_launcher",
+        "args": {},
+        "priority": 3,
+        "home": "Home"
+    },
+    {
+      "name": "Clipboard",
+      "type": "clipboard-execution",
+      "args": {
+        "capabilities": [
+          "url",
+          "colors.hex",
+          "colors.rgb",
+          "colors.hsl",
+          "calc.math",
+          "calc.lengths",
+          "calc.weights",
+          "calc.temperatures"
+        ]
+      },
+      "priority": 1,
+      "home": "Home"
+    },
+    {
+      "name": "Emoji Picker",
+      "type": "emoji_picker",
+      "args": {
+        "default_skin_tone": "Simpsons"
+      },
+      "priority": 4,
+      "home": "Search"
+    }
+]
+

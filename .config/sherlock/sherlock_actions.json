@@ -1,0 +1,5 @@
+{
+    "on": 100,
+    "action": "debug",
+    "exec": "clear_cache"
+}

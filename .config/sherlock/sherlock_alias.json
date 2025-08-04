@@ -1,0 +1,14 @@
+{
+  "Brave": {
+    "name": "Brave",
+    "icon": "brave",
+    "exec": "/usr/bin/brave --enable-features=UseOzonePlatform --ozone-platform=wayland %U",
+    "keywords": "brave"
+  },
+  "GoofCord": {
+    "name": "Discord",
+    "icon": "discord",
+    "exec": "/usr/bin/goofcord --enable-features=UseOzonePlatform --ozone-platform=wayland %U",
+    "keywords": "discord"
+  }
+}

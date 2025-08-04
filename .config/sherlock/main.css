@@ -1,0 +1,17 @@
+:root {
+    --background: 0, 0%, 7%;
+    --background-soft: 0, 0%, 11%;
+    --border: 0, 0%, 100%, 0.051;
+    --border-soft: 0, 0%, 100%, 0.051;
+    --text: 0, 0%, 88%;
+    --text-active: 0, 0%, 35%;
+
+    --tag-background: 0, 0%, 11%;
+
+    --foreground: 0, 0%, 11%;
+    --foreground-soft: 0, 0%, 11%;
+
+    --error: 4, 66%, 40%;
+    --success: 58, 72%, 40%;
+    --warning: 39, 75%, 54%;
+}
