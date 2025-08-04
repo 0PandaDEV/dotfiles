@@ -3,7 +3,7 @@
   "modules": ["kernel", "uptime", "packages", "memory", "disk"],
   "logo": {
     "type": "file",
-    "source": "~/.config/neofetch/bunny.txt",
+    "source": "~/.config/fastfetch/bunny.txt",
     "padding": {
       "right": 5
     },
