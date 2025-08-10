@@ -43,3 +43,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 if [[ "$ARGV0" == "/opt/cursor-bin/cursor-bin.AppImage" ]]; then
   unset ARGV0
 fi
+
+export ANDROID_SDK_ROOT=~/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
