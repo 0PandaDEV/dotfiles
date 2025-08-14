@@ -29,12 +29,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export GPG_TTY=$(tty)
 eval "$(zoxide init --cmd cd zsh)"
 
-if [[ -z "$SSH_CONNECTION" && -z "$DISPLAY" && "$(tty)" == /dev/tty1 ]]; then
-  if uwsm check may-start; then
-    exec uwsm start hyprland.desktop
-  fi
-fi
-
 [ -s "/home/pandadev/.bun/_bun" ] && source "/home/pandadev/.bun/_bun"
 
 export BUN_INSTALL="$HOME/.bun"
@@ -46,3 +40,5 @@ fi
 
 export ANDROID_SDK_ROOT=~/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
+
+export PATH=$PATH:/home/pandadev/.spicetify
