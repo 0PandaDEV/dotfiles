@@ -6,23 +6,42 @@ export default function Media() {
   const mpris = Mpris.get_default();
 
   return (
-    <box className="Media Widget" child={
-      bind(mpris, "players").as((players) => {
-        const ciderPlayer = players.find(player => player.identity === "Cider");
-        
-        if (ciderPlayer) {
+    <box
+      className="Media Widget"
+      child={bind(mpris, "players").as((players) => {
+        let activePlayer;
+
+        activePlayer = players.find(
+          (player) =>
+            ["Feishin", "Cider"].includes(player.identity) &&
+            player.playback_status === Mpris.PlaybackStatus.PLAYING
+        );
+
+        if (!activePlayer) {
+          activePlayer = players.find((player) =>
+            ["Feishin", "Cider"].includes(player.identity)
+          );
+        }
+
+        console.log(
+          activePlayer
+            ? `Active Player: ${activePlayer.identity} (${activePlayer.playback_status})`
+            : "No Active Player"
+        );
+
+        if (activePlayer) {
           return (
             <box>
               <box
                 className="Cover"
                 valign={Gtk.Align.CENTER}
-                css={bind(ciderPlayer, "coverArt").as(
+                css={bind(activePlayer, "cover_art").as(
                   (cover) => `background-image: url('${cover}');`
                 )}
               />
               <label
-                label={bind(ciderPlayer, "metadata").as(
-                  () => `${ciderPlayer.title} - ${ciderPlayer.artist}`
+                label={bind(activePlayer, "title").as(
+                  (title) => `${title} - ${activePlayer.artist}`
                 )}
               />
             </box>
@@ -30,7 +49,7 @@ export default function Media() {
         } else {
           return <label label="Nothing Playing" />;
         }
-      })
-    } />
+      })}
+    />
   );
 }
