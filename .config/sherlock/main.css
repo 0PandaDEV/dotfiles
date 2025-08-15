@@ -1,17 +1,17 @@
 :root {
-    --background: 0, 0%, 7%;
-    --background-soft: 0, 0%, 11%;
-    --border: 0, 0%, 100%, 0.051;
-    --border-soft: 0, 0%, 100%, 0.051;
-    --text: 0, 0%, 88%;
-    --text-active: 0, 0%, 35%;
+    --background: #121212;
+    --background-soft: #1c1c1c;
+    --border: #ffffff0d;
+    --border-soft: #ffffff0d;
+    --text: #e0e0e0;
+    --text-active: #595959;
 
-    --tag-background: 0, 0%, 11%;
+    --tag-background: #1c1c1c;
 
-    --foreground: 0, 0%, 11%;
-    --foreground-soft: 0, 0%, 11%;
+    --foreground: #1c1c1c;
+    --foreground-soft: #1c1c1c;
 
-    --error: 4, 66%, 40%;
-    --success: 58, 72%, 40%;
-    --warning: 39, 75%, 54%;
+    --error: #a92c23;
+    --success: #afab1d;
+    --warning: #e2a432;
 }
