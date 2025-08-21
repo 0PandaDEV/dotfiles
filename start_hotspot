@@ -1,0 +1,168 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Hardcoded configuration
+CHANNEL=149
+GATEWAY=192.168.12.1
+WPA_VERSION=2
+ETC_HOSTS=0
+DHCP_DNS=192.168.12.1
+NO_DNS=0
+NO_DNSMASQ=0
+HIDDEN=0
+MAC_FILTER=0
+MAC_FILTER_ACCEPT=/etc/hostapd/hostapd.accept
+ISOLATE_CLIENTS=0
+SHARE_METHOD=nat
+IEEE80211N=1
+IEEE80211AC=1
+HT_CAPAB='[HT40+][SHORT-GI-20][SHORT-GI-40]'
+VHT_CAPAB='[SHORT-GI-80][MAX-MPDU-11454][RX-STBC-1]'
+DRIVER=nl80211
+NO_VIRT=0
+COUNTRY=US
+FREQ_BAND=5
+NEW_MACADDR=
+DAEMONIZE=0
+NO_HAVEGED=0
+WIFI_IFACE=wlan0
+
+# Detect the appropriate internet interface
+# Check if VPN (tun0) is up, otherwise use enp4s0
+if ip link show tun0 &>/dev/null && ip addr show tun0 | grep -q "inet "; then
+    INTERNET_IFACE=tun0
+    echo "Detected VPN connection, using tun0 as internet interface"
+else
+    INTERNET_IFACE=enp4s0
+    echo "No VPN detected, using enp4s0 as internet interface"
+fi
+
+SSID=-
+PASSPHRASE='----1234'
+USE_PSK=0
+
+# Decide 80 MHz center segment index
+CENTER_IDX=""
+case "$CHANNEL" in
+    36|40|44|48)
+        CENTER_IDX=42
+    ;;
+    149|153|157|161)
+        CENTER_IDX=155
+    ;;
+    *)
+        echo "Unsupported CHANNEL=$CHANNEL for 80 MHz. Use one of 36/40/44/48 or 149/153/157/161." >&2
+        exit 1
+    ;;
+esac
+
+LOG="/home/pandadev/hotspot.log"
+DNSLOG="/home/pandadev/hotspot-dnsmasq.log"
+CONFDIR="/tmp/hostapd80"
+DNSCONF="$CONFDIR/dnsmasq.conf"
+HAPCONF="$CONFDIR/hostapd.conf"
+
+sudo pkill hostapd 2>/dev/null || true
+sudo pkill dnsmasq 2>/dev/null || true
+sudo killall create_ap 2>/dev/null || true
+
+# Network manager off and unblock
+sudo nmcli r wifi off || true
+sudo rfkill unblock wlan || true
+
+# Sysctl tweaks
+sudo sysctl -w net.ipv4.ip_forward=1 >/dev/null
+sudo sysctl -w net.ipv4.tcp_congestion_control=bbr >/dev/null || true
+sudo sysctl -w net.core.wmem_max=12582912 >/dev/null || true
+sudo sysctl -w net.core.rmem_max=12582912 >/dev/null || true
+sudo sysctl -w net.ipv4.tcp_window_scaling=1 >/dev/null || true
+sudo sysctl -w net.ipv4.tcp_fastopen=3 >/dev/null || true
+
+# Stop firewalld if present
+sudo systemctl stop firewalld 2>/dev/null || true
+
+# Prepare iface
+sudo ip link set "$WIFI_IFACE" down || true
+sudo ip addr flush dev "$WIFI_IFACE" || true
+sudo ip link set "$WIFI_IFACE" up
+
+# Configure local IP on AP iface
+sudo ip addr add "$GATEWAY/24" dev "$WIFI_IFACE" 2>/dev/null || true
+
+# Clear existing rules for both interfaces
+sudo iptables -t nat -D POSTROUTING -o enp4s0 -j MASQUERADE 2>/dev/null || true
+sudo iptables -t nat -D POSTROUTING -o tun0 -j MASQUERADE 2>/dev/null || true
+sudo iptables -D FORWARD -i enp4s0 -o "$WIFI_IFACE" -m state --state RELATED,ESTABLISHED -j ACCEPT 2>/dev/null || true
+sudo iptables -D FORWARD -i tun0 -o "$WIFI_IFACE" -m state --state RELATED,ESTABLISHED -j ACCEPT 2>/dev/null || true
+sudo iptables -D FORWARD -i "$WIFI_IFACE" -o enp4s0 -j ACCEPT 2>/dev/null || true
+sudo iptables -D FORWARD -i "$WIFI_IFACE" -o tun0 -j ACCEPT 2>/dev/null || true
+
+# NAT rules (idempotent-ish)
+sudo iptables -t nat -C POSTROUTING -o "$INTERNET_IFACE" -j MASQUERADE 2>/dev/null || sudo iptables -t nat -A POSTROUTING -o "$INTERNET_IFACE" -j MASQUERADE
+sudo iptables -C FORWARD -i "$INTERNET_IFACE" -o "$WIFI_IFACE" -m state --state RELATED,ESTABLISHED -j ACCEPT 2>/dev/null || sudo iptables -A FORWARD -i "$INTERNET_IFACE" -o "$WIFI_IFACE" -m state --state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -C FORWARD -i "$WIFI_IFACE" -o "$INTERNET_IFACE" -j ACCEPT 2>/dev/null || sudo iptables -A FORWARD -i "$WIFI_IFACE" -o "$INTERNET_IFACE" -j ACCEPT
+
+mkdir -p "$CONFDIR"
+# Ensure hostapd control socket dir exists and is writable by root
+sudo mkdir -p /var/run/hostapd
+sudo chmod 755 /var/run/hostapd
+# Prepare logs (create and make world-readable)
+sudo touch "$LOG" "$DNSLOG"
+sudo chown pandadev: "$DNSLOG" || true
+sudo chmod 644 "$LOG" "$DNSLOG"
+
+# dnsmasq config (enable logging)
+cat >"$DNSCONF" <<EOF
+user=nobody
+interface=${WIFI_IFACE}
+bind-interfaces
+listen-address=${GATEWAY}
+dhcp-range=${GATEWAY%.*}.10,${GATEWAY%.*}.250,255.255.255.0,24h
+dhcp-option=option:router,${GATEWAY}
+dhcp-option=option:dns-server,${GATEWAY}
+log-queries
+log-dhcp
+log-facility=${DNSLOG}
+EOF
+
+# hostapd config for 80 MHz
+cat >"$HAPCONF" <<EOF
+country_code=${COUNTRY}
+interface=${WIFI_IFACE}
+driver=nl80211
+ssid=${SSID}
+channel=${CHANNEL}
+hw_mode=a
+ieee80211n=1
+ht_capab=${HT_CAPAB}
+ieee80211ac=1
+wmm_enabled=1
+# Control socket for hostapd_cli and better logging
+ctrl_interface=/var/run/hostapd
+ctrl_interface_group=0
+# VHT capabilities and operation for 80 MHz
+vht_capab=${VHT_CAPAB}
+vht_oper_chwidth=1
+vht_oper_centr_freq_seg0_idx=${CENTER_IDX}
+# WPA2
+wpa=2
+wpa_passphrase=${PASSPHRASE}
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=CCMP
+rsn_pairwise=CCMP
+EOF
+
+# Start services
+sudo dnsmasq -C "$DNSCONF" >>"$DNSLOG" 2>&1 &
+# Run hostapd with verbose logging (-dd)
+if sudo hostapd -dd -B "$HAPCONF" >>"$LOG" 2>&1; then
+    sleep 1
+    iw dev "$WIFI_IFACE" info | sed -n '1,120p'
+    echo "Hotspot (80 MHz) started with internet interface: $INTERNET_IFACE"
+    echo "Logs: $LOG and DNS logs: $DNSLOG"
+    echo "Follow hostapd: tail -f $LOG"
+    echo "Follow dnsmasq: tail -f $DNSLOG"
+else
+    echo "hostapd failed; see $LOG" 1>&2
+    exit 1
+fi
