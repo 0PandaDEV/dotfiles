@@ -25,6 +25,7 @@ source ~/.config/zsh/aliases.zsh
 
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
 export GPG_TTY=$(tty)
 eval "$(zoxide init --cmd cd zsh)"
@@ -42,3 +43,4 @@ export ANDROID_SDK_ROOT=~/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
 
 export PATH=$PATH:/home/pandadev/.spicetify
+export AVALONIA_GLOBAL_SCALE_FACTOR=1.25
